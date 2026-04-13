@@ -1,178 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Street Reach Africa | Moving Brands. Empowering Riders.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        :root {
-            --gold: #f0b429; --gold-fade: rgba(240, 180, 41, 0.1);
-            --ink: #08090a; --dark-card: #121315;
-            --paper: #f0ece3; --sub: rgba(240, 236, 227, 0.6);
-            --mist: rgba(255,255,255,0.05);
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; overflow-x: hidden; background: var(--ink); }
-        body { background: var(--ink); color: var(--paper); font-family: 'Cabinet Grotesk', sans-serif; line-height: 1.6; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Street Reach Africa — Moving Brands. Empowering Riders.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* RESTORED ORIGINAL STYLES */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#08090a;--paper:#f0ece3;--gold:#f0b429;--gold2:#ffd166;
+  --fog:#1c1d1f;--fog2:#252628;
+  --mist:rgba(240,236,227,0.07);--mist2:rgba(240,236,227,0.04);
+  --muted:rgba(240,236,227,0.38);--sub:rgba(240,236,227,0.6);--green:#00e896;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--ink);color:var(--paper);font-family:'Cabinet Grotesk',sans-serif;overflow-x:hidden;font-size:15px;line-height:1.6;}
 
-        /* NAVIGATION RESTORATION */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; background: rgba(8,9,10,0.9); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--mist);
-        }
-        .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .nav-logo-img { height: 45px; width: 45px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--gold); }
-        .nav-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--gold); letter-spacing: 1px; }
+/* FIX: Section spacing to prevent blank gaps */
+section { position: relative; width: 100%; min-height: auto; padding: 100px 52px; overflow: hidden; }
 
-        /* PREMIUM HERO SECTION */
-        .hero {
-            height: 90vh; position: relative; display: flex; align-items: center; justify-content: center;
-            background: linear-gradient(to bottom, rgba(8,9,10,0.5), var(--ink)), 
-                        url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&q=80&w=2000');
-            background-size: cover; background-position: center; text-align: center; padding: 0 5%;
-        }
-        .hero-content { max-width: 900px; z-index: 10; }
-        .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 20px; }
-        .hero p { font-size: 1.2rem; color: var(--sub); max-width: 600px; margin: 0 auto 40px; }
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:11px 52px;background:rgba(8,9,10,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(240,236,227,0.08);}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--gold);font-family:'Bebas Neue';font-size:1.5rem;}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
 
-        /* STATS (NO BORDER BLOAT) */
-        .stats-row { display: flex; justify-content: center; gap: 50px; margin-bottom: 40px; flex-wrap: wrap; }
-        .stat-box h2 { font-family: 'Bebas Neue'; font-size: 3.5rem; color: var(--gold); line-height: 1; }
-        .stat-box p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--sub); }
+/* HERO RESTORATION */
+.hero{padding-top:200px; display:flex; flex-direction:column; align-items:center; text-align:center;}
+.hero h1{font-family:'Bebas Neue'; font-size:clamp(4rem, 10vw, 8rem); line-height:0.85; margin-bottom:20px;}
+.gold{color:var(--gold);}
 
-        /* GRID LAYOUT FOR SERVICES */
-        .services { padding: 100px 5%; background: var(--ink); }
-        .section-title { font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: 50px; text-align: center; }
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .service-card { 
-            background: var(--dark-card); padding: 50px 40px; border-radius: 24px; 
-            border: 1px solid var(--mist); transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .service-card:hover { border-color: var(--gold); transform: translateY(-10px); }
-        .service-card h3 { font-family: 'Bebas Neue'; font-size: 2rem; color: var(--gold); margin-bottom: 15px; }
+/* RESTORED DOCUMENT FORM STYLING */
+.m-inp { background: rgba(255,255,255,0.05); border: 1px solid var(--mist); color: #fff; padding: 14px; border-radius: 8px; margin-bottom: 12px; width: 100%; font-family: inherit; }
+.f-label { display: block; margin-bottom: 5px; font-size: 0.8rem; color: var(--gold); font-weight: 700; text-transform: uppercase; }
+.modal-btn { background: var(--gold); color: var(--ink); border: none; padding: 18px; border-radius: 40px; font-weight: 900; cursor: pointer; width: 100%; text-transform: uppercase; margin-top: 10px; }
 
-        /* BUTTONS */
-        .btn { padding: 16px 36px; border-radius: 50px; font-weight: 800; text-decoration: none; cursor: pointer; border: none; font-size: 0.9rem; transition: 0.3s; display: inline-block; text-transform: uppercase; }
-        .btn-gold { background: var(--gold); color: var(--ink); }
-        .btn-outline { background: transparent; border: 2px solid var(--gold); color: var(--gold); margin-left: 15px; }
-
-        /* FORM MODAL (IMPROVED) */
-        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; backdrop-filter: blur(10px); }
-        .modal.active { display: flex; }
-        .modal-inner { background: #111; padding: 50px; border-radius: 30px; width: 100%; max-width: 500px; border: 1px solid var(--gold-fade); }
-        input, select { width: 100%; padding: 16px; margin-bottom: 15px; background: #000; border: 1px solid var(--mist); color: white; border-radius: 12px; font-family: inherit; }
-
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 3.5rem; }
-            .btn-outline { margin-left: 0; margin-top: 15px; width: 100%; }
-            .btn-gold { width: 100%; }
-        }
-    </style>
+/* MODAL RESTORATION */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.95);display:none;z-index:1000;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(10px);}
+.modal-bg.open{display:flex;}
+.modal-box{background:var(--fog);padding:40px;border-radius:30px;width:100%;max-width:550px;border:1px solid var(--mist);max-height:90vh;overflow-y:auto;}
+</style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="nav-brand">
-            <img src="https://via.placeholder.com/100x100/f0b429/08090a?text=SR" class="nav-logo-img" alt="SR Logo">
-            <span class="nav-text">STREET REACH AFRICA</span>
-        </a>
-        <div style="display:flex; gap:20px;">
-            <button class="btn btn-gold" style="padding: 10px 20px; font-size: 0.7rem;" onclick="toggleModal()">JOIN FLEET</button>
-        </div>
-    </nav>
+<nav>
+  <a href="#" class="nav-logo">STREET REACH AFRICA</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#riders">For Riders</a></li>
+  </ul>
+  <button class="modal-btn" style="width:auto; padding:10px 25px; font-size:0.7rem;" onclick="openModal()">Join Fleet</button>
+</nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <p style="color:var(--gold); font-weight:700; letter-spacing:3px; margin-bottom:15px;">TRANSIT MEDIA NETWORK</p>
-            <h1>MOVING BRANDS.<br><span style="color:var(--gold)">EMPOWERING RIDERS.</span></h1>
-            <p>Nairobi's premium mobile advertising platform. We turn delivery bikes into high-impact billboards that reach every street.</p>
-            
-            <div class="stats-row">
-                <div class="stat-box"><h2>5K+</h2><p>Riders</p></div>
-                <div class="stat-box"><h2>12M</h2><p>Impressions</p></div>
-                <div class="stat-box"><h2>100%</h2><p>Coverage</p></div>
-            </div>
+<section class="hero">
+  <h1>MOVING BRANDS.<br><span class="gold">EMPOWERING RIDERS.</span></h1>
+  <p style="max-width:600px; color:var(--sub); margin-bottom:40px;">Nairobi's premier transit media network turning delivery bikes into high-impact billboards.</p>
+  <button class="modal-btn" style="max-width:300px;" onclick="openModal()">Apply as a Rider</button>
+</section>
 
-            <div class="actions">
-                <a href="mailto:hello@streetreach.africa" class="btn btn-gold">Partner with Us</a>
-                <button class="btn btn-outline" onclick="toggleModal()">Become a Rider</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="services">
-        <h2 class="section-title">WHY STREET REACH?</h2>
-        <div class="service-grid">
-            <div class="service-card">
-                <h3>Massive Reach</h3>
-                <p>Delivery bikes penetrate neighborhoods where traditional billboards are restricted. We offer 100% visibility in residential and commercial hubs.</p>
-            </div>
-            <div class="service-card">
-                <h3>Rider Welfare</h3>
-                <p>We are a social enterprise. Every campaign directly funds the "Street Shield" program, providing riders with insurance and bail assistance.</p>
-            </div>
-            <div class="service-card">
-                <h3>Real-Time ROI</h3>
-                <p>Track your campaign movement across the city with data-driven heatmaps showing exactly where your brand is active.</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="modal" id="regModal">
-        <div class="modal-inner">
-            <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;">RIDER ONBOARDING</h2>
-            <p style="color: var(--sub); margin-bottom: 30px;">Earn extra income on every delivery. Sign up below.</p>
-            <form id="riderForm">
-                <input type="text" id="name" required placeholder="Full Name">
-                <input type="tel" id="phone" required placeholder="WhatsApp Number">
-                <input type="text" id="nid" required placeholder="ID Number">
-                <select id="bike">
-                    <option value="Motorcycle">Motorcycle (Boda Boda)</option>
-                    <option value="Electric">Electric Bike</option>
-                    <option value="Bicycle">Bicycle</option>
-                </select>
-                <button type="submit" class="btn btn-gold" style="width: 100%;">SUBMIT APPLICATION</button>
-                <button type="button" onclick="toggleModal()" style="background:none; border:none; color:var(--sub); margin-top:20px; width:100%; cursor:pointer;">Close Window</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        const supabase = window.supabase.createClient("https://kgnrojmorgetcuxkudjr.supabase.co", "sb_publishable_0Zt06Sat4HMhw-fkfeBCZw_NyUyeMdC");
+<div id="riderModal" class="modal-bg">
+  <div class="modal-box">
+    <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--gold); margin-bottom:10px;">RIDER ONBOARDING</h2>
+    <p style="color:var(--sub); margin-bottom:20px; font-size:0.9rem;">Submit your details and documents to join the Street Reach fleet.</p>
+    
+    <div id="regFormInner">
+        <input type="text" id="w-name" class="m-inp" placeholder="Full Name *">
+        <input type="tel" id="w-phone" class="m-inp" placeholder="WhatsApp Number *">
+        <input type="text" id="w-nid-num" class="m-inp" placeholder="National ID Number *">
         
-        function toggleModal() {
-            document.getElementById('regModal').classList.toggle('active');
-        }
+        <select id="w-bike" class="m-inp">
+            <option value="Motorcycle">Motorcycle (Boda Boda)</option>
+            <option value="Electric">Electric Bike</option>
+            <option value="Bicycle">Bicycle</option>
+        </select>
 
-        document.getElementById('riderForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerText = "PROCESSING...";
-            btn.disabled = true;
+        <div style="margin-top:20px;">
+            <label class="f-label">National ID (Front)</label>
+            <input type="file" id="wf-nid" class="m-inp">
+            
+            <label class="f-label">Driving License</label>
+            <input type="file" id="wf-lic" class="m-inp">
+            
+            <label class="f-label">Insurance Certificate</label>
+            <input type="file" id="wf-ins" class="m-inp">
+        </div>
 
-            const { error } = await supabase.from('riders').insert([{
-                full_name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                national_id: document.getElementById('nid').value,
-                bike_type: document.getElementById('bike').value,
-                status: 'pending'
-            }]);
+        <button id="wSubmitBtn" class="modal-btn" onclick="submitRider()">Submit Application</button>
+        <button onclick="closeModal()" style="background:none; border:none; color:var(--sub); margin-top:15px; width:100%; cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
 
-            if (error) {
-                alert("Error: " + error.message);
-            } else {
-                alert("Application Sent Successfully!");
-                toggleModal();
-                e.target.reset();
-            }
-            btn.innerText = "SUBMIT APPLICATION";
-            btn.disabled = false;
-        });
-    </script>
+<script>
+// INITIALIZE WITH YOUR CREDENTIALS
+const wdb = supabase.createClient("https://kgnrojmorgetcuxkudjr.supabase.co", "sb_publishable_0Zt06Sat4HMhw-fkfeBCZw_NyUyeMdC");
+
+function openModal() { document.getElementById('riderModal').classList.add('open'); }
+function closeModal() { document.getElementById('riderModal').classList.remove('open'); }
+
+async function submitRider() {
+  const name = document.getElementById('w-name').value;
+  const phone = document.getElementById('w-phone').value;
+  const nid = document.getElementById('w-nid-num').value;
+  const bike = document.getElementById('w-bike').value;
+
+  if(!name || !phone || !nid) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  const btn = document.getElementById('wSubmitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+
+  try {
+    // 1. Insert Rider Data
+    const { data: rider, error: rErr } = await wdb.from('riders').insert({
+      full_name: name,
+      phone: phone,
+      national_id: nid,
+      bike_type: bike,
+      status: 'pending'
+    }).select().single();
+
+    if(rErr) throw rErr;
+
+    // 2. Upload Documents to your 'rider-docs' Bucket
+    const docMap = [
+      { id: 'wf-nid', type: 'national_id' },
+      { id: 'wf-lic', type: 'license' },
+      { id: 'wf-ins', type: 'insurance' }
+    ];
+
+    for(const d of docMap) {
+      const input = document.getElementById(d.id);
+      if(input.files[0]) {
+        const file = input.files[0];
+        const ext = file.name.split('.').pop();
+        const path = `rider-${rider.id}/${d.type}.${ext}`;
+        await wdb.storage.from('rider-docs').upload(path, file);
+      }
+    }
+
+    alert("Application Successful!");
+    closeModal();
+  } catch (err) {
+    console.error(err);
+    alert("Error: " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
+  }
+}
+</script>
 </body>
 </html>
